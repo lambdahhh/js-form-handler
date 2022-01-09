@@ -5,7 +5,7 @@ services:
     build:
       context: ./docker/frontend
     ports:
-      - "6120:4000"
+      - "6120:80"
     volumes:
       - ./docker/frontend/nginx.conf:/etc/nginx/conf.d/default.conf
       - ./frontend:/www/frontend
