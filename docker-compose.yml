@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: ./docker/frontend
+    ports:
+      - "6120:4000"
+    volumes:
+      - ./docker/frontend/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./frontend:/www/frontend
+    working_dir: /www/frontend
+    command: nginx -g 'daemon off;'
+
+  backend:
+    image: nginx:1.20
+    ports:
+      - "6121:80"
+    volumes:
+      - ./docker/backend/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./frontend:/www/backend
+    working_dir: /www/backend
+    links:
+      - fpm
+    command: nginx -g 'daemon off;'
+  fpm:
+    image: php:7.4-fpm
+    ports:
+      - "6122:9000"
+    volumes:
+      - ./backend:/www/backend
+    working_dir: /www/backend
