@@ -9,11 +9,12 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
     },
     devServer: {
-        // static: {
-        //     directory: path.join(__dirname, 'dist'),
-        // },
+        static: './dist',
+        open: true,
         compress: true,
-        port: 3000,
+        hostname: 'http://localhost:8080/ws',
+        hot: true,
+        port: 8080,
     },
     plugins: [
         new CopyWebpackPlugin({
